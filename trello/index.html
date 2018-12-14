@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--Andrew Oliver ajo14-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Andrew Oliver - netID: ajo14">
+    
+    <!-- stop the web browser from ever caching this page or its images -->
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <!-- Vue, Firebase, VueFire, and Jquery added to page -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuefire/1.4.5/vuefire.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    
+    <!-- javascript and css styling for this page -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" async></script>
+
+    <title>Trello</title>
+</head>
+
+<body>
+    
+    <!--The following div handles all of the elements for user login-->
+    
+    <div id="login">
+        
+        <div id="initialLogin">
+          <h1>Enter Login Information Below</h1>
+          <p>Username/Email: <input v-model=inputtedUsername placeholder="Enter Username"></p>
+          <button v-on:click="logIn()">Log In</button>
+          <button v-on:click="register()">Register</button>
+          <button v-on:click="update()">Update User Information</button>
+        </div>
+        
+        <div id="createUser">
+            <section class="actions">
+                <form id="form" @submit.prevent="handler">
+                    <!--Creates input fields for user entry or new user creation-->
+                    <div>
+                        <h1>{{header}}</h1>
+                        <p>Username: <input v-model=inputtedUsername placeholder="Enter Username"></p>
+                        <p>Email: <input v-model=inputtedEmail placeholder="Enter Email"></p>
+                        <p>Background Color: <input v-model=inputtedColor placeholder="Enter Background Color"></p>
+                        <p>Profile Photo: <input type="file" id="files" name="files[]" /></p>
+                    </div>
+                    <!--Creates button for user information to be updated-->
+                    <div>
+                        <input type="submit" value="Register" />
+                        <button v-on:click="update()">Update Information</button>
+                    </div>
+                </form>
+            </section>
+            
+        </div>
+        
+        <div id="userImg">
+            <p>User: {{inputtedUsername}}</p>
+            <img :src='imageURL'>
+        </div>
+        
+    </div>
+     
+    <!--The div below contains all the elements to be used in list/card generation-->
+    
+    <div id="listContainer">
+        
+        <!--This div contains the inputs for creating a new list, changing background color, and sorting by category-->
+        <div id="listInputs">
+            <input id="nameInput" v-model=listNameInput placeholder="Enter New List Name">
+            <input id="descriptionInput" v-model=listDescriptionInput placeholder="Enter New List Description">
+            <button id="createListInput" v-on:click="createList(listNameInput, listDescriptionInput)" >Create New List</button>
+            
+            <!--This div contains the inputs for changing the background input-->
+            <input id="backgroundInput" v-model=backgroundColorInput placeholder="Enter Color or Image URL">
+            <button v-on:click="changeBackground(backgroundColorInput)" id="backgroundButton" >Change Background</button> 
+            
+            <!--This div contains the inputs for sorting and changing card color based on the input-->
+            <input id="colorInput" v-model=categoryInput placeholder="Enter Category">
+            <input id="categoryInput" v-model=categoryColorInput placeholder="Enter Color">
+            <button id="buttonInput" v-on:click="colorCategory(categoryInput, categoryColorInput)">Change Color Category</button> 
+            
+            <!--This div contains the inputs for sorting and changing card color based on the input of date or category-->
+            <input id="visDateInput" v-model=dateVisibilityInput placeholder="Enter date">
+            <input id="visCatInput" v-model=categoryVisibilityInput placeholder="Enter category">
+            <button id="visButtonInput" v-on:click="visibleCategory(categoryVisibilityInput, dateVisibilityInput)">Filter Visibility</button> 
+            
+            <!--This div allows lists to be orented horizontally-->
+            <button id="orientButton" v-on:click="orientLists()">Click to Orient Lists Horziontally</button>
+            
+            <!--This div allows lists to be orented vertically-->
+            <button id="orientButtonVert" v-on:click="orientListsVert()">Click to Orient Lists Vertically</button>
+            
+        </div>
+        
+        <!--This div contains information about the elements of a list (cards)-->
+        <div id="listElementsContainer">
+            <div id="listElements" v-for="list in Lists" v-bind:style="{height: list.listStyle}">
+                  <h1>{{ list.listName }}</h1>
+                  <div id ="leftArrow" @click="shiftLeft(list.num)"><p>&#8678</p></div>  
+                  <div id ="rightArrow" @click="shiftRight(list.num)"><p>&#8680</p></div>
+                  <img src=images/wheel.png alt="Cog Wheel" v-bind:id="list.num" @click="editList(list.num)"/>
+                  <h2>{{ list.listDescription }}</h2> 
+                  <ul>
+                      <li v-for="item in list.listItem" v-bind:id="'individualList' + list.num + '-' + item.identifier">
+                          <div v-bind:id="list.num + '-' + item.identifier" @click="expandCard($event)">
+                              <p>{{ item.name }}</p>
+                              <p>{{ item.description }}</p>
+                              <h6>Created: {{ item.created }} Completion: {{item.percentageCompleted}}%</h6>
+                         </div>
+                      
+                        <!--This div is the area that allows switching and open editing of cards-->
+                        <div id="editCardArea">
+                          <!--<img src=images/wheel.png id="cardEdit"/>-->
+                          <button id ="cardLeftArrow" @click="shiftCardLeft(list.num, item.identifier)">&#8678</button>  
+                          <button id ="cardRightArrow" @click="shiftCardRight(list.num, item.identifier)">&#8680</button>
+                          
+                          <button v-on:click="deleteCard(list.num, item.identifier)">Delete</button>
+                          
+                          <button v-on:click="openEditCard()">Edit</button>
+                          
+                          <div id="commentsUsers">
+                              <p>Assign Users: <input v-model=userInput placeholder="Enter Card Name"></p>
+                              <p>Add Comments: <input v-model=commentInput placeholder="Enter Card Name"></p>
+                              
+                              <img id="exitUsersComments" src="images/x.png" alt="exit" @click="closeUsersComments()"/>
+                              
+                              <button v-on:click="addCU()">Add</button>
+                          </div>
+                          
+                          <button v-on:click="addUsers(list.num, item.identifier)">Assign Card Users</button>
+                          
+                          <button v-on:click="addComments(list.num, item.identifier)">Add Card Comments</button>
+                          
+                          
+                          <div id="editCard">
+                            <p>Change Card Name: <input  v-model=cardNameChangeInput placeholder="Enter New Card Name"></p>
+                            <button v-bind:id = "list.num +'-' + item.identifier" v-on:click="editCard($event)" >Edit Card</button>
+                            <img id="exitButtonCard" src="images/x.png" alt="exit" @click="closeEditCard()"/>
+                          </div>
+                     </div>
+                          
+                      </li>
+
+                      <li>
+                        <button id="newListInput" v-model=newItemListInput v-on:click="openAddList(list.num)" >Add Card</button>  
+                      </li>
+                  </ul>
+            </div>
+    
+        </div>
+           
+        <!--This div is the area that allows inputs for the editing of cards-->
+        <div id="editItemContainer">
+
+            <p>Card Name: <input id="editNameInput" v-model=cardNameInput placeholder="Enter Card Name"></p>
+
+            <p>Card Description: <input id="cardDescriptionInput" v-model=cardDescriptionInput placeholder="Enter Card Description"></p>
+
+            <p>Assign Card to a List: <input id="assignCardInput" v-model=assignCardInput placeholder="Enter List Name"></p>
+            
+            <p>Date Created: <input v-model=cardCreatedInput placeholder="Enter Date Created"></p>
+
+            <p>Date Due: <input v-model=cardDueInput placeholder="Enter Date Due"></p>
+
+            <p>Percentage of Completion: <input v-model=cardCompletionInput placeholder="Enter Number"></p>
+
+            <p>Card Category: <input v-model=cardCategoryInput placeholder="Enter Category"></p>
+            
+            <p>Profile Photo: <input type="file" id="files" name="files[]" /></p>
+
+            <p>To Do: <input v-model=cardToDoInput placeholder="Enter To Do Item"></p>
+
+            <button id="editListInput" v-on:click="addNewCard(cardNameInput, cardDescriptionInput, assignCardInput, cardCreatedInput, cardDueInput, cardCompletionInput, cardCategoryInput, cardToDoInput)">Add New Card</button>
+
+            
+            
+            <img id="exitButton" src="images/x.png" alt="exit" @click="closeAddCardList()"/>
+
+            
+            
+            
+            
+            
+       </div>
+               
+        <!--This div is the area that shows the exapnded view of the card-->
+        <div id="expandedCardView">
+            
+            <img id="exitButton" src="images/x.png" alt="exit" @click="closeCard()"/>
+            
+            
+            <p>Card Name: {{expandName}} </p>
+
+            <p>Card Description: {{expandDescription}}</p>
+
+            <p>Assign Card to a List: {{expandListAssigned}}</p>
+            
+            <p>Date Created: {{expandDate}}</p>
+
+            <p>Date Due: {{expandDue}}</p>
+
+            <p>Percentage of Completion:  {{expandPercentageCompleted}} </p>
+
+            <p>Card Category: {{expandCategory}}</p>
+            
+            <p>Card To Do: {{expandToDo}}</p>
+            
+            <p>Comments: {{expandComments}}</p>
+            
+            <p>Users: {{expandUsers}}</p>
+                        
+        </div>    
+
+        <div id="editListContainer">
+            <p>Change List Name: <input id="editNameInput" v-model=listNameChangeInput placeholder="Enter New List Name"></p>
+            
+            <p>Change List Description: <input id="editDescriptionInput" v-model=listDescriptionChangeInput placeholder="Enter New List Description"></p>
+            
+            <p>Change List View: <input v-model=editViewInput placeholder="Collapsed or Expanded"></p>
+            
+            <button id="deleteList" v-on:click="deleteList()" >Delete List</button>
+            
+            <button id="editListInput" v-on:click="edit(listNameChangeInput, listDescriptionChangeInput, editViewInput)" >Edit List</button>
+            
+            <img id="exitButton" src="images/x.png" alt="exit" @click="closeEditList()"/>
+        </div>
+    
+    </div>
+    
+    <!--This div contains the attributes for the two images used-->
+    <div id="footer">
+        <i><p>Cog Image made by Daniel Bruce from FlatIcon <a href="https://www.flaticon.com/free-icon/cogwheel_3668"> Link Here</a></p>
+        <p>X Image made by Ameer Nuri from Icon Finder <a href="https://www.iconfinder.com/icons/390560/cancel_close_delete_exit_remove_trash_x_icon#size=128"> Link Here</a></p></i>
+    </div>
+
+    
+    
+    
+
+
+</body>
+</html>

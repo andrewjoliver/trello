@@ -1,0 +1,65 @@
+{
+    "loginInformation": [
+        
+        {
+            "username": "test",
+            "email": "test"
+        }
+    ],
+    
+    "images": [
+        
+        {
+            "url": "test"
+        }
+    ],
+    
+    "lists": [
+                {"num": 1,
+                 "listName": "Example List", 
+                 "listDescription": "Example List Description",
+                 "listStyle": "50em",
+                 "listItem": [
+                     {
+                         "identifier": 0,
+                         "name": "Card 1",
+                         "description": "Card 1 Description", 
+                         "listAssigned": "Example List",
+                         "created": "1/10/18",
+                         "due": "2/10/18",
+                         "percentageCompleted": 40,
+                         "category": "Monday",
+                         "imageAttachments": "",
+                         "toDoList": "",
+                         "comments": [
+                             {}
+                         ],
+                         "assignedUsers": [
+                             {}
+                         ]
+
+                     }, 
+                     {
+                         "identifier": 0,
+                         "name": "Card 1",
+                         "description": "Card 1 Description", 
+                         "listAssigned": "Example List",
+                         "created": "1/10/18",
+                         "due": "2/10/18",
+                         "percentageCompleted": 40,
+                         "category": "Monday",
+                         "imageAttachments": "",
+                         "toDoList": "",
+                         "comments": [
+                             {}
+                         ],
+                         "assignedUsers": [
+                             {}
+                         ]
+                     }
+
+                 ]
+                }
+            ]
+
+}

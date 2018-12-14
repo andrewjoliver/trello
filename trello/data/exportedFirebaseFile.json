@@ -1,0 +1,86 @@
+{
+  "images" : {
+    "0" : {
+      "url" : "test"
+    },
+    "-L80fATvu-0LdQfx78Nt" : {
+      "url" : "https://firebasestorage.googleapis.com/v0/b/trello-ded6d.appspot.com/o/images%2Fau-bon-painlogo_0.jpg?alt=media&token=ee04f805-4385-409d-b894-61379cc7baa3"
+    }
+  },
+  "lists" : {
+    "0" : {
+      "listDescription" : "Example List Description",
+      "listItem" : {
+        "0" : {
+          "category" : "Monday",
+          "created" : "1/10/18",
+          "description" : "Card 1 Description",
+          "due" : "2/10/18",
+          "identifier" : 0,
+          "imageAttachments" : "",
+          "listAssigned" : "Example List",
+          "name" : "Card 1",
+          "percentageCompleted" : 40,
+          "toDoList" : ""
+        },
+        "1" : {
+          "category" : "Monday",
+          "created" : "1/10/18",
+          "description" : "Card 1 Description",
+          "due" : "2/10/18",
+          "identifier" : 0,
+          "imageAttachments" : "",
+          "listAssigned" : "Example List",
+          "name" : "Card 1",
+          "percentageCompleted" : 40,
+          "toDoList" : ""
+        },
+        "-L80SuEoizX5nVfkq8Kn" : {
+          "cardCategoryInput" : "",
+          "created" : "",
+          "description" : "sdsd",
+          "due" : "",
+          "identifier" : 2,
+          "listAssigned" : "Example List",
+          "name" : "sdf",
+          "percentageCompleted" : "",
+          "toDoList" : ""
+        }
+      },
+      "listName" : "Example List",
+      "listStyle" : "50em",
+      "num" : 1
+    },
+    "-L80T-jfY_tmENTpz0Dw" : {
+      "listDescription" : "fdsf",
+      "listName" : "ffds",
+      "num" : 2
+    }
+  },
+  "loginInformation" : {
+    "0" : {
+      "email" : "test",
+      "username" : "sadsad"
+    },
+    "-L80f6sDDu25FeU3XcwA" : {
+      "backgroundColor" : "red",
+      "email" : "sadasd",
+      "username" : "adsadsa"
+    },
+    "-L80f77HY1LwupEy-jDj" : {
+      "backgroundColor" : "red",
+      "email" : "sadasd",
+      "username" : "adsadsa"
+    },
+    "-L80fAExlAgra7z28iMD" : {
+      "backgroundColor" : "red",
+      "email" : "adsdasd",
+      "username" : "sadsad"
+    },
+    "-L80fAV_ufMxBWffOmCy" : {
+      "backgroundColor" : "red",
+      "email" : "adsdasd",
+      "username" : "sadsad"
+    }
+  }
+}

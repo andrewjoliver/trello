@@ -1,0 +1,317 @@
+#login {
+    text-align: center;
+}
+
+#userImg{
+    visibility: hidden;
+}
+#userImg img{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10%;
+    height: 10%;
+}
+
+#userImg p{
+    position: absolute;
+    right: 10%;
+    margin: 0;
+    top: 0;
+    width: 10%;
+    height: auto;
+}
+
+#createUser{
+    visibility: hidden;
+}
+
+#listContainer {
+    visibility: hidden;
+}
+
+#nameInput {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+    left: 20%;
+}
+
+#descriptionInput {
+    position: absolute;
+    top: 20px;
+    left: 38%;
+    width: 20%
+}
+
+#colorInput{
+    position: absolute;
+    top: 100px;
+    left: 25%;
+    width: 15%
+}
+
+#categoryInput{
+    position: absolute;
+    top: 100px;
+    left: 44%;
+}
+
+#buttonInput{
+    position: absolute;
+    top: 100px;
+    left: 60%;
+}
+
+
+#createListInput {
+    position: absolute;
+    top: 20px;
+    left: 60%;
+    width: 15%
+}
+
+#backgroundInput{
+    position: absolute;
+    top: 60px;
+    left: 32%;
+    width: 15%
+}
+
+#backgroundButton{
+    position: absolute;
+    top: 60px;
+    left: 52%;
+    width: 15% 
+}
+
+/*
+#editGroup h2{
+    position: absolute;
+    top: 75px;
+    left: 43%;
+    width: 15%  
+}
+
+#editGroup button{
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    width: 10%  
+}
+
+#editGroup input{
+    position: absolute;
+    top: 130px;
+    left: 33%;
+    width: 15%  
+}
+*/
+
+
+#listElements{
+    width: 30%;
+    text-align: center;
+    height: 50em;
+    background-color: aqua;
+    display: inline-block;
+    overflow: hidden;
+    border: 2px solid;
+    margin: 1%;
+    position: relative;
+    list-style-type: decimal;
+}
+
+#listElements img{
+    width: 10%;    
+    position: absolute;
+    top: 5.5%;
+    right: 2%;
+}
+
+#listElements img:hover{
+    cursor: pointer;
+}
+
+#editListContainer{
+    position: fixed;
+    top: 25%;
+    visibility: hidden;
+    background-color: antiquewhite;
+    border: 5px solid;
+    text-align: center;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#editItemContainer{
+    position: fixed;
+    top: 25%;
+    visibility: hidden;
+    background-color: antiquewhite;
+    border: 5px solid;
+    text-align: center;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#expandedCardView{
+    position: fixed;
+    top: 25%;
+    visibility: hidden;
+    background-color: antiquewhite;
+    border: 5px solid;
+    text-align: center;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#card:hover {
+    cursor: pointer;
+}
+
+
+
+#exitButton{
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    width: 3%;
+}
+
+#listElements li:hover{
+    cursor: pointer;
+}
+
+#listElements li{
+    background-color: beige;
+    border: 1px solid;
+    margin: 2%
+}
+
+#leftArrow {
+    position: absolute;
+    top: -5.5%;
+    left: 1%;
+    font-size: 200%
+}
+
+#rightArrow {
+    position: absolute;
+    top: -5.5%;
+    right: 1%;
+    font-size: 200%;
+}
+
+#rightArrow:hover, #leftArrow:hover{
+    cursor: pointer;
+}
+
+img:hover{
+    cursor: pointer;
+}
+
+#listElements h6{
+    margin: 0%;
+}
+
+.editCardArea:hover{
+    cursor: col-resize;
+}
+
+#editCard{
+    position: fixed;
+    top: 25%;
+    visibility: hidden;
+    background-color: antiquewhite;
+    border: 5px solid;
+    text-align: center;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#exitButtonCard img{
+    position: fixed;
+    top: 25%;
+    width: 20%;
+}
+
+#visButtonInput{
+    position: absolute;
+    top: 130px;
+    left: 63%;
+    width: 10%
+}
+
+#visCatInput{
+    position: absolute;
+    top: 130px;
+    left: 28%;
+    width: 15%
+}
+
+#visDateInput{
+    position: absolute;
+    top: 130px;
+    left: 45%;
+    width: 15%
+}
+
+#orientButtonVert{
+    position: absolute;
+    top: 160px;
+    left: 32%;
+    width: 15%
+}
+
+#orientButton{
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    width: 15%
+}
+
+#commentsUsers{
+    position: fixed;
+    top: 25%;
+    visibility: hidden;
+    background-color: antiquewhite;
+    border: 5px solid;
+    text-align: center;
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#editUsersComments{
+    position: fixed;
+    top: 25%;
+}
+
+#commentsUsers button{
+    position: absolute;
+    height: 1.6%;
+    top: 82.2%;
+}
+
+#footer{
+    text-align: center;
+    
+}
+
+@media (max-width: 900px)  { 
+    #listContainer input { 
+        width: 10%
+    } 
+    #listContainer button{ 
+        font-size: 2%;
+    } 
+}
+
+
+
+
